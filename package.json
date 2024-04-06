@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "flask-dev": "FLASK_DEBUG=1 pip3 install -r requirements.txt && python3 -m flask --app api/index run -p 5328",
+    "linux-flask-dev": "FLASK_DEBUG=1 pip3 install -r requirements.txt && python3 -m flask --app api/index run -p 5328",
+    "windows-flask-dev": "set FLASK_DEBUG=1 && pip3 install -r requirements.txt && python -m flask --app api/index run -p 5328",
     "next-dev": "next dev",
-    "dev": "concurrently \"pnpm run next-dev\" \"pnpm run flask-dev\"",
+    "linux-dev": "concurrently \"pnpm run next-dev\" \"pnpm run linux-flask-dev\"",
+    "windows-dev": "concurrently \"pnpm run next-dev\" \"pnpm run windows-flask-dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -18,6 +20,7 @@
     "concurrently": "^8.0.1",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "mongodb": "^6.5.0",
     "next": "13.4.3",
     "postcss": "8.4.23",
     "react": "18.2.0",
