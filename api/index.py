@@ -146,6 +146,24 @@ def get_appointments():
     data = collection.find()
     return json.loads(json_util.dumps(data))
 
+@app.get("/api/get-appointments/<uhid>")
+def get_specific_appointment_info(uhid):
+    try:
+    
+        collection = db["appointments"]
+        
+        # Find patient by UHID
+        patient = collection.find_one({"uhid": int(uhid)})
+        
+        # Check if patient exists
+        if uhid:
+            return json.loads(json_util.dumps(patient))
+        else:
+            return jsonify({"error": "Patient not found"}), 404  # HTTP status code 404 indicates resource not found
+    except Exception as e:
+        # If an error occurs, respond with an error message
+        return jsonify({"error": str(e)}), 500  # HTTP status code 500 indicates internal server error
+
 
 
 @app.post("/api/book-appointment")
