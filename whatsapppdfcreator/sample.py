@@ -1,12 +1,13 @@
+import tempfile
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, Table, TableStyle, KeepTogether, Frame
-
+from heyoo import WhatsApp
+import requests
 # Create a PDF file
-pdf_filename = "prescription.pdf"
 pdf = SimpleDocTemplate(
-    pdf_filename,
+    "prescription.pdf",
     pagesize=letter,
     rightMargin=30,
     leftMargin=30,
@@ -128,6 +129,10 @@ content_elements.append(Image(image_filename, width=150, height=50))
 
 """
 # Build PDF
-pdf.build(content_elements)
 
-print(f"PDF {pdf_filename} has been created.")
+messenger = WhatsApp("EAAGL5dZCRyoEBO5zEVXpckSwl7RMrjfMc4IYu3EWpVdGuj0CYDm08o5pkQD39mfmg6tikNOFsCpxgJjoNapnPZAcpivNZCZCr3gQMNaZCCSZCI0g6IHqnAYy7ZAVCR9jLJJKW2tQzCZB0cjkDigRXnXfgDoZC7oNxmrw3Qaz3ZCcV2icSGClvtOMNkZB6DAWzPg9DLMvHn0NkaUML6rDuUwopiB", phone_number_id="259164670622151")
+messenger.send_document(
+        document="https://pdfobject.com/pdf/sample.pdf",
+        recipient_id="918129953715",
+        caption="Lab Reports"
+    )

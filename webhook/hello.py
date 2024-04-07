@@ -230,6 +230,20 @@ def extract_audio():
                     print(state)
                     state = "ask symptoms"
                     print(state)
+
+                elif message_id=="prescriptions":
+                    messenger.send_document(
+        document="https://pdfobject.com/pdf/sample.pdf",
+        recipient_id="918129953715",
+        caption="Prescription"
+    ) 
+                elif message_id=="lab":
+                    messenger.send_document(
+        document="https://pdfobject.com/pdf/sample.pdf",
+        recipient_id="918129953715",
+        caption="Lab Report"
+    )
+                
                 
 
 
