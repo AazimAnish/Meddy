@@ -1,7 +1,8 @@
 {
     "builds": [
         {
-            "use": "@vercel/next"
+            "use": "@vercel/next",
+            "src": "package.json"
           },
           {
             "use": "@vercel/python",
