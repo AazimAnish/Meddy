@@ -76,7 +76,7 @@ a {
 
 .clearNav {
   backdrop-filter: saturate(180%) blur(5px) !important;
-  background-color: rgba(0, 0, 0, 0.7) !important;
+  background-color: rgba(75, 75, 75, 0.12) !important;
 }
 
 .fsac4 {
