@@ -1,0 +1,4 @@
+flask
+gunicorn
+heyoo
+deep_translator
