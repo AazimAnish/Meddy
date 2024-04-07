@@ -11,5 +11,11 @@
         "src": "/(.*)",
         "dest": "vercel_app/wsgi.py"
       }
+    ],
+    "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/"
+        }
     ]
 }
