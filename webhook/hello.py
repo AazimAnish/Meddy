@@ -272,7 +272,9 @@ def extract_audio():
                 audio = messenger.get_audio(data)
                 audio_id, mime_type = audio["id"], audio["mime_type"]
                 audio_url = messenger.query_media_url(audio_id)
-                response = requests.post("http://127.0.0.1:3000/api/audios", json=audio, headers={'Content-Type': 'application/json'})
+                audio["mobile"] = mobile
+                audio["language"] = language
+                response = requests.post("https://meddy-rho.vercel.app/api/audios", json=audio, headers={'Content-Type': 'application/json'})
                 if response.status_code == 200:
                     print("Request successful:", response.content)
                 else:
