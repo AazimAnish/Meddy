@@ -38,6 +38,26 @@ def view_patients():
     data = collection.find() # Retrieve data from MongoDB collection
     return json.loads(json_util.dumps(data))
 
+
+@app.get("/api/view-patients/<uhid>")
+def view_patient(uhid):
+    try:
+    
+        collection = db["patient"]
+        
+        # Find patient by UHID
+        patient = collection.find_one({"uhid": int(uhid)})
+        
+        # Check if patient exists
+        if uhid:
+            return json.loads(json_util.dumps(patient))
+        else:
+            return jsonify({"error": "Patient not found"}), 404  # HTTP status code 404 indicates resource not found
+    except Exception as e:
+        # If an error occurs, respond with an error message
+        return jsonify({"error": str(e)}), 500  # HTTP status code 500 indicates internal server error
+
+
 '''   
 @app.post("/api/speech-to-text")
 def speech_to_text():

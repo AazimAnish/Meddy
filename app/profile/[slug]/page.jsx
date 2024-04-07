@@ -45,7 +45,7 @@ function Page() {
           <div className="bg-[rgb(48,57,114)] h-[6rem] w-full rounded-t-xl justify-start flex flex-row gap-x-[35rem] max-w-content">
             <div className="h-[8rem] w-[8rem] rounded-full bg-white m-5 items-center justify-center flex z-0">
               <label htmlFor="profile-picture-input">
-                <img src="../images/profile.jpg" className="m-auto object-fit h-[7rem] w-[7rem] rounded-full bg-white cursor-pointer" fill="#303972" alt="Profile" />
+                <IoPersonCircleOutline className="m-auto object-fit h-[9rem] w-[9rem] rounded-full bg-white cursor-pointer" fill="#303972" alt="Profile" />
               </label>
               <input
                 type="file"
