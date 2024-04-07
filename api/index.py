@@ -33,7 +33,7 @@ def prescription():
 def view_patients():
     data = collection.find() # Retrieve data from MongoDB collection
     return json.loads(json_util.dumps(data))
-
+    
 @app.post("/api/speech-to-text")
 def speech_to_text():
     try:

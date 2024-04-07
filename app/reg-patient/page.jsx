@@ -15,7 +15,8 @@ export default function Profile() {
         postalCode: '',
         phone: '',
         dob: '',
-        maritalStatus: 'Single'
+        maritalStatus: 'Single',
+        uhid : Math.floor(Math.random() * 90000) + 10000
       });
     
       const handleChange = (e) => {
