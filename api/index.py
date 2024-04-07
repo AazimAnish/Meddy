@@ -1,6 +1,7 @@
 from flask import Flask,request,jsonify
 import json
 from bson import json_util
+import requests
 
 app = Flask(__name__)
 from pymongo import MongoClient
@@ -10,6 +11,7 @@ import os
 load_dotenv()
 mongo_username = os.getenv("MONGO_USERNAME")
 mongo_password = os.getenv("MONGO_PASSWORD")
+#gpt_key = os.getenv("GPT_API_KEY")
 
 # Replace the connection string with your MongoDB cluster connection string
 connection_string = f"mongodb+srv://{mongo_username}:{mongo_password}@meddy.mohd0er.mongodb.net/?retryWrites=true&w=majority&appName=meddy"
@@ -32,7 +34,22 @@ def view_patients():
     data = collection.find() # Retrieve data from MongoDB collection
     return json.loads(json_util.dumps(data))
 
+@app.post("/api/speech-to-text")
+def speech_to_text():
+    try:
+        client = OpenAI()
 
+        audio_file= open("harvard.wav", "rb")
+        transcription = client.audio.transcriptions.create(
+        model="whisper-1", 
+        file=audio_file
+        )
+        print(transcription.text)
+        
+    except Exception as e:
+        # If an error occurs, respond with an error message
+        print(e)
+        return "An error occurred"
 
 @app.post("/api/prescription")
 def add_prescription():
