@@ -8,5 +8,12 @@
             "use": "@vercel/python",
             "config": { "runtime": "python3.8" }
           }
+    ],
+    "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/"
+        }
     ]
+
 }
