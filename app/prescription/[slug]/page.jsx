@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from '../../../components/Sidebar';
 import { usePathname } from 'next/navigation';
-import Search from '../../components/Search';
+import Search from '../../../components/Search';
 import axios from 'axios'; // Import Axios library
 
 const Page = () => {
     const pathname = usePathname();
     const [medInputs, setMedInputs] = useState([{ id:1 , medicine: '', timings: ['Morning', 'Lunch', 'Night'] }]);
+    const uhidVar = `${pathname.split('/')[2]}`
 
 
     const options = [
@@ -56,29 +57,50 @@ const Page = () => {
             return newMedInputs; // Return the updated medInputs array
         });
     };
-    
-    
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Make Axios POST request to submit form data
-        console.log(medInputs)
-        const newMedInputs = {
-            DoctorName : "Dr. Cook",
-            PatientName : "",
-            
-
-
-        }
-        axios.post('https://whatsapp-oxkj.onrender.com/send_prescription', medInputs)
+    const fetchPatientData = async() => {
+        // Fetch user data based on the uhid
+        await axios.get(`/api/view-patients/${uhidVar}`)
             .then(response => {
-                console.log(response.data);
-                // Handle success
+                // Set the user data from the response
+                return response.data;
             })
             .catch(error => {
-                console.error('Error submitting form:', error);
-                // Handle error
+                console.error('Error fetching user data:', error);
             });
+    }
+    
+    const fetchAppoinment = async() => {
+        // Fetch user data based on the uhid
+        await axios.get(`/api/get-appointments/${uhidVar}`)
+            .then(response => {
+                // Set the user data from the response
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }
+    
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        // Make Axios POST request to submit form data
+        const patient = await fetchPatientData();
+        const appointment = await fetchAppoinment();
+
+        console.log(medInputs)
+        const newMedInputs = {
+            DoctorName : appointment.doctor,
+            HospitalName : "Rajagiri hospital",
+            Doctor_specialization : appointment.speciality,
+            uhid : uhidVar,
+            Medicines : medInputs,
+            patient : patient,
+        }
+
+        console.log(newMedInputs,"newmedinputs")
+       
     };
 
     return (
