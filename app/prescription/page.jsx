@@ -64,10 +64,13 @@ const Page = () => {
         // Make Axios POST request to submit form data
         console.log(medInputs)
         const newMedInputs = {
-            "Doctor name" : "Dr. Cook",
+            DoctorName : "Dr. Cook",
+            PatientName : "",
             
+
+
         }
-        axios.post('/api/submitForm', medInputs)
+        axios.post('https://whatsapp-oxkj.onrender.com/send_prescription', medInputs)
             .then(response => {
                 console.log(response.data);
                 // Handle success

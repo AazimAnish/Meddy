@@ -1,6 +1,7 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Sidebar from '../../../components/Sidebar';
+import axios from 'axios';
 import { IoPersonCircleOutline } from 'react-icons/io5';
 import { usePathname } from 'next/navigation';
 
@@ -16,11 +17,25 @@ function Page() {
     postalCode: '10001',
     phone: '123-456-7890',
     dob: '01/01/1990',
-    maritalStatus: 'Single'
+    maritalStatus: 'Single',
+    uhid: '1234567890'
   });
 
   const path = usePathname();
-  const base = `/${path.split('/')[1]}`;
+  const base = `/${path.split('/')[1]}`
+  const uhidVar = `${path.split('/')[2]}`
+
+  useEffect(() => {
+    // Fetch user data based on the uhid
+    axios.get(`/api/view-patients/${uhidVar}`)
+      .then(response => {
+        // Set the user data from the response
+        setUserData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
+  }, [uhidVar]);
 
   return (
     <div className="">
@@ -30,7 +45,7 @@ function Page() {
           <div className="bg-[rgb(48,57,114)] h-[6rem] w-full rounded-t-xl justify-start flex flex-row gap-x-[35rem] max-w-content">
             <div className="h-[8rem] w-[8rem] rounded-full bg-white m-5 items-center justify-center flex z-0">
               <label htmlFor="profile-picture-input">
-                <img src="../images/profile.jpg" className="m-auto object-fit h-[7rem] w-[7rem] rounded-full bg-white cursor-pointer" fill="#303972" alt="Profile" />
+                <IoPersonCircleOutline className="m-auto object-fit h-[9rem] w-[9rem] rounded-full bg-white cursor-pointer" fill="#303972" alt="Profile" />
               </label>
               <input
                 type="file"
@@ -48,7 +63,7 @@ function Page() {
             <div className="flex flex-row justify-between max-h-6 items-start">
               <h2 className="font-bold text-dark-blue ml-5 text-2xl flex-initial">{userData.firstName} {userData.lastName}</h2>
             </div>
-            <h4 className="text-gray-500 ml-5 mt-2">Patient</h4>
+            <h4 className="text-gray-500 ml-5 mt-2">Patient {userData.uhid}</h4>
             <div className="grid grid-cols-3 grid-rows-2 gap-4 ml-5 mt-2 gap-y-10">
               <div className="flex flex-col">
                 <label className="text-[#A098AE]">Location</label>
