@@ -9,12 +9,6 @@
             "config": { "runtime": "python3.9" },
             "src": "api/index.py"
           }
-    ],
-    "rewrites": [
-        {
-          "source": "/(.*)",
-          "destination": "/"
-        }
     ]
 
 }
