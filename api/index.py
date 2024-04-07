@@ -221,6 +221,7 @@ def audio():
         data = request.json  # Assuming JSON data is sent in the request body
 
         # Insert the data into the MongoDB collection
+        collection.delete_many({})
         result = collection.insert_one(data)
 
         # Respond with a success message and the ID of the inserted document
