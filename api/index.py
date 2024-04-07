@@ -18,7 +18,7 @@ mongo_password = os.getenv("MONGO_PASSWORD")
 # Replace the connection string with your MongoDB cluster connection string
 connection_string = f"mongodb+srv://{mongo_username}:{mongo_password}@meddy.mohd0er.mongodb.net/?retryWrites=true&w=majority&appName=meddy"
 
-client = MongoClient(connection_string)
+client = MongoClient(connection_string, tls=True, tlsAllowInvalidCertificates=True)
 db = client["rajagiri"]  # Replace 'dbname' with your database name
 
 
