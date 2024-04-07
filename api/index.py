@@ -27,6 +27,12 @@ def prescription():
     data = collection.find() # Retrieve data from MongoDB collection
     return json.loads(json_util.dumps(data))
 
+@app.get("/api/view-patients")
+def view_patients():
+    data = collection.find() # Retrieve data from MongoDB collection
+    return json.loads(json_util.dumps(data))
+
+
 
 @app.post("/api/prescription")
 def add_prescription():
@@ -66,3 +72,5 @@ def add_patient():
     except Exception as e:
         # If an error occurs, respond with an error message
         return jsonify({"error": str(e)}), 500  # HTTP status code 500 indicates internal server error
+
+
