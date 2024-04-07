@@ -100,3 +100,19 @@ a {
 .fkrr1 {
   font-family: "Inter", sans-serif;
 }
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px); /* Adjust the distance as needed */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-move-up-down {
+  animation: moveUpDown 3s ease-in-out infinite; /* Adjust duration as needed */
+}
