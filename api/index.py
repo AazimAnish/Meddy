@@ -27,6 +27,27 @@ def prescription():
     data = collection.find() # Retrieve data from MongoDB collection
     return json.loads(json_util.dumps(data))
 
+
+@app.post("/api/prescription")
+def add_prescription():
+    try:
+        # Get data from the POST request
+        data = request.json  # Assuming JSON data is sent in the request body
+
+        # Insert the data into the MongoDB collection
+        result = collection.insert_one(data)
+
+        # Respond with a success message and the ID of the inserted document
+        response = {
+            "message": "Prescription added successfully",
+            "inserted_id": str(result.inserted_id)
+        }
+        return jsonify(response), 201  # HTTP status code 201 indicates resource created
+    except Exception as e:
+        # If an error occurs, respond with an error message
+        return jsonify({"error": str(e)}), 500  # HTTP status code 500 indicates internal server error
+
+
 @app.post("/api/patient-reg")
 def add_patient():
     try:
@@ -38,7 +59,7 @@ def add_patient():
 
         # Respond with a success message and the ID of the inserted document
         response = {
-            "message": "Prescription added successfully",
+            "message": "Patient registered successfully",
             "inserted_id": str(result.inserted_id)
         }
         return jsonify(response), 201  # HTTP status code 201 indicates resource created
