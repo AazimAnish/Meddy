@@ -27,7 +27,7 @@ export default function Profile() {
         console.log(formData)
         e.preventDefault();
         try {
-          const response = await axios.post('/reg-patient', formData);
+          const response = await axios.post('/api/patient-reg', formData);
           if (response.status === 200) {
             // Handle success
             console.log('Data submitted successfully!');
