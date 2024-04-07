@@ -1,29 +1,11 @@
 {
     "builds": [
         {
-            "src": "package.json",
             "use": "@vercel/next"
           },
           {
-            "src": "api/wsgi.py",
             "use": "@vercel/python",
             "config": { "runtime": "python3.8" }
           }
-    ],
-    "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "api/wsgi.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-    ],
-    "rewrites": [
-        {
-          "source": "/(.*)",
-          "destination": "/"
-        }
     ]
 }
