@@ -100,6 +100,15 @@ const Page = () => {
         }
 
         console.log(newMedInputs,"newmedinputs")
+        axios.post('https://whatsapp-oxkj.onrender.com/send_prescription', newMedInputs)
+            .then(response => {
+                console.log(response.data);
+                // Handle success
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                // Handle error
+            });
        
     };
 
