@@ -39,7 +39,7 @@ function Page() {
 
   return (
     <div className="">
-      <Sidebar path={base} />
+      <Sidebar path={base} uhid={uhidVar}/>
       <div className="bg-white  z-30 w-auto  text-black h-screen">
         <div className="flex max-w-full ml-[19rem] rounded-xl flex-col bg-white mr-5">
           <div className="bg-[rgb(48,57,114)] h-[6rem] w-full rounded-t-xl justify-start flex flex-row gap-x-[35rem] max-w-content">
