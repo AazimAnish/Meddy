@@ -9,7 +9,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 from deep_translator import GoogleTranslator
-
+from pydub import AudioSegment
 from openai import OpenAI
 
 
@@ -216,7 +216,7 @@ def book():
         return jsonify({"error": str(e)}), 500  # HTTP status code 500 indicates internal server error
 
 
-@app.post("/api/audios")
+@app.post("/api/audios_add")
 def audio():
     try:
         collection = db["audios"]
@@ -247,6 +247,10 @@ def process_audio():
     audio_id = audio["id"]
     audio_url = messenger.query_media_url(audio_id)
     audio_filename = messenger.download_media(audio_url, mime_type)
+
+    audiok = AudioSegment.from_file(audio_filename, format="ogg")
+    mp3_filename = "converted_audio.mp3"
+    audiok.export(mp3_filename, format="mp3")
     client = OpenAI(
         # This is the default and can be omitted
         api_key=os.getenv("OPENAI_API_KEY"),
