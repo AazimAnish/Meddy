@@ -4,4 +4,5 @@ Werkzeug>=3.0.0
 pymongo==4.6.3
 python-dotenv==1.0.0
 heyoo==0.1.2
-deep_translator
+deep_translator==1.5.4
+pydub==0.25.1
