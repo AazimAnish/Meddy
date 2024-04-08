@@ -261,7 +261,7 @@ def process_audio():
     )
 
 
-    audio_file= open(r"temp.ogg", "rb")
+    audio_file= open(r"converted_audio.mp3", "rb")
     translation = client.audio.translations.create(
     model="whisper-1", 
     file=audio_file
@@ -277,7 +277,7 @@ def process_audio():
 
     output = query({
         "inputs": translation.text,
-        "parameters": {"candidate_labels": ["Psychiatrist", "Dentist", "Cardiologist", "Dermatologist", "Orthopedist", "ENT Specialist", "General Physician"],"multi_label":True},
+        "parameters": {"candidate_labels": ["Psychiatrist", "Dentist", "Cardiologist", "Dermatologist", "Orthopedist", "ENT Specialist", "General Physician", "Ophthalmologist"],"multi_label":True},
     })
     required_doctor = output["labels"][0]
     textk = f'''
