@@ -319,3 +319,11 @@ def process_audio():
     
     
     return json.loads(json_util.dumps(audio))
+
+
+@app.get("/api/sendreminder") 
+def new():
+    messenger = WhatsApp("EAAGL5dZCRyoEBO5zEVXpckSwl7RMrjfMc4IYu3EWpVdGuj0CYDm08o5pkQD39mfmg6tikNOFsCpxgJjoNapnPZAcpivNZCZCr3gQMNaZCCSZCI0g6IHqnAYy7ZAVCR9jLJJKW2tQzCZB0cjkDigRXnXfgDoZC7oNxmrw3Qaz3ZCcV2icSGClvtOMNkZB6DAWzPg9DLMvHn0NkaUML6rDuUwopiB", phone_number_id="259164670622151")
+    messenger.send_message("നിങ്ങളുടെ മരുന്ന് കഴിക്കാൻ മറക്കരുത്","918129953715")
+    
+    return json.loads(json_util.dumps({"message":"sent"}))
