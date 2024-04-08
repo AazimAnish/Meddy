@@ -20,8 +20,8 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
  
 
 const navigation = [
-  { name: 'Patient profile', href: '#', icon: HomeIcon, id: "profile" },
-  { name: 'Bot analysys', href: '#', icon: UsersIcon, id: "bot-sum" },
+  { name: 'Patient profile', href: '#', icon: HomeIcon, id: "view-patients" },
+  { name: 'Bot analysys', href: '#', icon: UsersIcon, id: "bot-analysis" },
   { name: 'prescription', href: '#', icon: FolderIcon, id: "prescription" },
 ]
 const userNavigation = [

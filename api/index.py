@@ -4,11 +4,14 @@ from bson import json_util
 import requests
 from heyoo import WhatsApp
 from datetime import date
-
 app = Flask(__name__)
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
+from deep_translator import GoogleTranslator
+
+from openai import OpenAI
+
 
 load_dotenv()
 mongo_username = os.getenv("MONGO_USERNAME")
@@ -232,3 +235,78 @@ def audio():
     except Exception as e:
         # If an error occurs, respond with an error message
         return jsonify({"error": str(e)}), 500
+    
+@app.get("/api/audios") 
+def process_audio():
+    collection = db["audios"]
+    messenger = WhatsApp("EAAGL5dZCRyoEBO5zEVXpckSwl7RMrjfMc4IYu3EWpVdGuj0CYDm08o5pkQD39mfmg6tikNOFsCpxgJjoNapnPZAcpivNZCZCr3gQMNaZCCSZCI0g6IHqnAYy7ZAVCR9jLJJKW2tQzCZB0cjkDigRXnXfgDoZC7oNxmrw3Qaz3ZCcV2icSGClvtOMNkZB6DAWzPg9DLMvHn0NkaUML6rDuUwopiB", phone_number_id="259164670622151")
+    audio=list(collection.find({}))[0]
+    print(audio)
+    mime_type = audio["mime_type"]
+    audio_id = audio["id"]
+    audio_url = messenger.query_media_url(audio_id)
+    audio_filename = messenger.download_media(audio_url, mime_type)
+    client = OpenAI(
+        # This is the default and can be omitted
+        api_key=os.getenv("OPENAI_API_KEY"),
+    )
+
+
+    audio_file= open(r"temp.ogg", "rb")
+    translation = client.audio.translations.create(
+    model="whisper-1", 
+    file=audio_file
+    )
+    print(translation.text)
+
+    API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+    headers = {"Authorization": "Bearer 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"}
+
+    def query(payload):
+        response = requests.post(API_URL, headers=headers, json=payload)
+        return response.json()
+
+    output = query({
+        "inputs": translation.text,
+        "parameters": {"candidate_labels": ["Psychiatrist", "Dentist", "Cardiologist", "Dermatologist", "Orthopedist", "ENT Specialist", "General Physician"],"multi_label":True},
+    })
+    required_doctor = output["labels"][0]
+    textk = f'''
+    It is recommended that you see a {required_doctor}.\nShall I book an appointment for the following doctor available at Rajagiri Hospital\nPhilip K Thomas\nConsultant {required_doctor}
+    '''
+    if audio["language"] == "malayalam":
+        textk = GoogleTranslator(source='auto', target='ml').translate(textk)
+    
+
+
+
+    messenger.send_reply_button(
+        recipient_id=audio["mobile"],
+        button={
+            "type": "button",
+            "body": {
+                "text": textk
+            },
+            "action": {
+                "buttons": [
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "yes",
+                            "title": "Yes"
+                        }
+                    },
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "no",
+                            "title": "No"
+                        }
+                    }
+                ]
+            }
+        },
+    )
+    
+    
+    return json.loads(json_util.dumps(audio))
