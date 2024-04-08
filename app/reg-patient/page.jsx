@@ -26,55 +26,56 @@ export default function Profile() {
       };
     
       const handleSubmit = async (e) => {
-        console.log(formData)
         e.preventDefault();
+        console.log(formData)
         try {
           const response = await axios.post('/api/patient-reg', formData);
           if (response.status === 200) {
-            const fhirData={
-              "resourceType": "Patient",
-              "name": [
-                {
-                  "use": "official",
-                  "family": formData.lastName,
-                  "given": formData.firstName,
-                }
-              ],
-              "telecom": [
-                {
-                  "system": "email",
-                  "value": formData.email
-                },
-                {
-                  "system": "phone",
-                  "value": formData.phone
-                }
-              ],
-              "address": [
-                {
-                  "use": "home",
-                  "country": formData.country,
-                  "line": formData.streetAddress,
-                  "city": formData.city,
-                  "state": formData.region,
-                  "postalCode": formData.postalCode
-                }
-              ],
-              "gender": formData.gender,
-              "birthDate": formData.dob, // Replace with Date of Birth in format "YYYY-MM-DD"
-              "maritalStatus": {
-                "coding": [
-                  {
-                    "system": "http://hl7.org/fhir/v3/MaritalStatus",
-                    "code": "S",
-                    "display": formData.maritalStatus
-                  }
-                ]
-              }
-            }
-
-            console.log(fhirData,"fhirData")
             
+        const fhirData={
+          "resourceType": "Patient",
+          "name": [
+            {
+              "use": "official",
+              "family": formData.lastName,
+              "given": formData.firstName,
+            }
+          ],
+          "telecom": [
+            {
+              "system": "email",
+              "value": formData.email
+            },
+            {
+              "system": "phone",
+              "value": formData.phone
+            }
+          ],
+          "address": [
+            {
+              "use": "home",
+              "country": formData.country,
+              "line": formData.streetAddress,
+              "city": formData.city,
+              "state": formData.region,
+              "postalCode": formData.postalCode
+            }
+          ],
+          "gender": formData.gender,
+          "birthDate": formData.dob, // Replace with Date of Birth in format "YYYY-MM-DD"
+          "maritalStatus": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/v3/MaritalStatus",
+                "code": "S",
+                "display": formData.maritalStatus
+              }
+            ]
+          }
+        }
+        console.log(fhirData,"fhirData")
+        const res = await axios.post('http://localhost:8090/fhir/Patient', fhirData);
+        console.log(res.data)
           } else {
             // Handle errors
             console.error('Failed to submit data');
