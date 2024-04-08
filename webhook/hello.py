@@ -230,6 +230,20 @@ def extract_audio():
                     print(state)
                     state = "ask symptoms"
                     print(state)
+
+                elif message_id=="prescriptions":
+                    messenger.send_document(
+        document="https://pdfobject.com/pdf/sample.pdf",
+        recipient_id="918129953715",
+        caption="Prescription"
+    ) 
+                elif message_id=="lab":
+                    messenger.send_document(
+        document="https://pdfobject.com/pdf/sample.pdf",
+        recipient_id="918129953715",
+        caption="Lab Report"
+    )
+                
                 
 
 
@@ -258,6 +272,14 @@ def extract_audio():
                 audio = messenger.get_audio(data)
                 audio_id, mime_type = audio["id"], audio["mime_type"]
                 audio_url = messenger.query_media_url(audio_id)
+                audio["mobile"] = mobile
+                audio["language"] = language
+                response = requests.post("https://meddy-rho.vercel.app/api/audios", json=audio, headers={'Content-Type': 'application/json'})
+                if response.status_code == 200:
+                    print("Request successful:", response.content)
+                else:
+                    print("Request failed with status code:", response.status_code)
+                    print("Response content:", response.content) 
                 #audio_filename = messenger.download_media(audio_url, mime_type)
                 #print(f"{mobile} sent audio {audio_filename}")
 
