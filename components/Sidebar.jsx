@@ -36,7 +36,7 @@ export default function Sidebar({pathname,uhid}) {
   
 const navigation = [
     { name: 'Patient profile', href: '#', icon: HomeIcon, id: `/profile/${uhid}` },
-    { name: 'Bot analysys', href: '#', icon: UsersIcon, id: `/bot-sum/${uhid}` },
+    { name: 'Bot analysys', href: '#', icon: UsersIcon, id: `/bot-analysis/${uhid}` },
     { name: 'prescription', href: '#', icon: FolderIcon, id: `/prescription/${uhid}` },
   ]
  
