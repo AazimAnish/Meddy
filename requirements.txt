@@ -6,3 +6,4 @@ python-dotenv==1.0.0
 heyoo==0.1.2
 deep-translator==1.11.4
 pydub==0.25.1
+openai==1.2.3

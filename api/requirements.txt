@@ -7,3 +7,4 @@ heyoo==0.1.2
 gunicorn
 deep-translator==1.11.4
 pydub==0.25.1
+openai==1.2.3
