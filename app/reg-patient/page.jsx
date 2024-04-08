@@ -16,7 +16,8 @@ export default function Profile() {
         phone: '',
         dob: '',
         maritalStatus: 'Single',
-        uhid : Math.floor(Math.random() * 90000) + 10000
+        uhid : Math.floor(Math.random() * 90000) + 10000,
+        gender : ""
       });
     
       const handleChange = (e) => {
@@ -30,8 +31,50 @@ export default function Profile() {
         try {
           const response = await axios.post('/api/patient-reg', formData);
           if (response.status === 200) {
-            // Handle success
-            console.log('Data submitted successfully!');
+            const fhirData={
+              "resourceType": "Patient",
+              "name": [
+                {
+                  "use": "official",
+                  "family": formData.lastName,
+                  "given": formData.firstName,
+                }
+              ],
+              "telecom": [
+                {
+                  "system": "email",
+                  "value": formData.email
+                },
+                {
+                  "system": "phone",
+                  "value": formData.phone
+                }
+              ],
+              "address": [
+                {
+                  "use": "home",
+                  "country": formData.country,
+                  "line": formData.streetAddress,
+                  "city": formData.city,
+                  "state": formData.region,
+                  "postalCode": formData.postalCode
+                }
+              ],
+              "gender": formData.gender,
+              "birthDate": formData.dob, // Replace with Date of Birth in format "YYYY-MM-DD"
+              "maritalStatus": {
+                "coding": [
+                  {
+                    "system": "http://hl7.org/fhir/v3/MaritalStatus",
+                    "code": "S",
+                    "display": formData.maritalStatus
+                  }
+                ]
+              }
+            }
+
+            console.log(fhirData,"fhirData")
+            
           } else {
             // Handle errors
             console.error('Failed to submit data');
@@ -234,6 +277,24 @@ export default function Profile() {
                   <option>Single</option>
                   <option>Married</option>
                   <option>Divorced</option>
+                </select>
+              </div>
+            </div>
+            <div className="sm:col-span-3">
+              <label htmlFor="status" className="block text-sm font-medium leading-6 text-gray-900">
+                Gender
+              </label>
+              <div className="mt-2">
+                <select
+                  id="status"
+                  name="maritalStatus"
+                    onChange={handleChange}
+                    value={formData.gender}
+                  autoComplete="status"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option>Male</option>
+                  <option>Female</option>
                 </select>
               </div>
             </div>
