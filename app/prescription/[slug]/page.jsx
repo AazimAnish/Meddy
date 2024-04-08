@@ -120,7 +120,7 @@ const Page = () => {
 
     return (
         <div>
-            <Sidebar path={pathname} />
+            <Sidebar path={pathname} uhid={uhidVar}/>
             <div className='bg-white ml-[18rem] h-screen w-full overflow-hidden'>
                 <h1 className='pt-10 pl-20 font-bold text-2xl'>Add prescription</h1>
                 <form className="w-full pt-10 ml-20 space-y-8">

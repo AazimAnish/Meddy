@@ -21,7 +21,7 @@ mongo_password = os.getenv("MONGO_PASSWORD")
 # Replace the connection string with your MongoDB cluster connection string
 connection_string = f"mongodb+srv://{mongo_username}:{mongo_password}@meddy.mohd0er.mongodb.net/?retryWrites=true&w=majority&appName=meddy"
 
-client = MongoClient(connection_string)
+client = MongoClient(connection_string, tls=True, tlsAllowInvalidCertificates=True)
 db = client["rajagiri"]  # Replace 'dbname' with your database name
 
 
@@ -224,8 +224,9 @@ def audio():
         data = request.json  # Assuming JSON data is sent in the request body
 
         # Insert the data into the MongoDB collection
+        collection.delete_many({})
         result = collection.insert_one(data)
-
+        
         # Respond with a success message and the ID of the inserted document
         response = {
             "message": "Audio added successfully",
