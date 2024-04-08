@@ -19,11 +19,6 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
  
 
-const navigation = [
-  { name: 'Patient profile', href: '#', icon: HomeIcon, id: "profile" },
-  { name: 'Bot analysys', href: '#', icon: UsersIcon, id: "bot-sum" },
-  { name: 'prescription', href: '#', icon: FolderIcon, id: "prescription" },
-]
 const userNavigation = [
   { name: 'Your profile', href: '#' },
   { name: 'Sign out', href: '#' },
@@ -33,13 +28,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Sidebar(pathname) {
+export default function Sidebar({pathname,uhid}) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  console.log(pathname,"pathnamefskjbe")
-  useEffect(() => {
-    console.log(pathname.path)
-  },[pathname.path])
-
+  if(!pathname){
+    pathname = {path: `/profile/${uhid}`}
+  }
+  
+const navigation = [
+    { name: 'Patient profile', href: '#', icon: HomeIcon, id: `/profile/${uhid}` },
+    { name: 'Bot analysys', href: '#', icon: UsersIcon, id: `/bot-sum/${uhid}` },
+    { name: 'prescription', href: '#', icon: FolderIcon, id: `/prescription/${uhid}` },
+  ]
  
 
   return (

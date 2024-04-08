@@ -1,6 +1,6 @@
 import React from 'react'
-import Sidebar from '../../components/Sidebar'
-import Table from '../../components/Table.jsx'
+import Sidebar from '../../../components/Sidebar'
+import Table from '../../../components/Table.jsx'
 
 const page = () => {
 
