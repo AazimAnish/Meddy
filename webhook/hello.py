@@ -62,7 +62,7 @@ def extract_audio():
                     symptoms = GoogleTranslator(source='auto', target='en').translate(message)           
 
                     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
-                    headers = {"Authorization": "Bearer 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"}
+                    headers = {"Authorization": "Bearer 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"}
 
                     def query(payload):
                         response = requests.post(API_URL, headers=headers, json=payload)
@@ -77,7 +77,7 @@ def extract_audio():
                     It is recommended that you see a {required_doctor}.\nShall I book an appointment for the following doctor available at Rajagiri Hospital\nPhilip K Thomas\nConsultant {required_doctor}
                     '''
                     if language=="malayalam":
-                        textk = GoogleTranslator(source='auto', target='ml').translate(message) 
+                        textk = GoogleTranslator(source='auto', target='ml').translate(textk) 
                     
                     
 

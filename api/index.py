@@ -261,7 +261,7 @@ def process_audio():
     print(translation.text)
 
     API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
-    headers = {"Authorization": "Bearer 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"}
+    headers = {"Authorization": "Bearer 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"}
 
     def query(payload):
         response = requests.post(API_URL, headers=headers, json=payload)
