@@ -9,7 +9,11 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
 from deep_translator import GoogleTranslator
-from pydub import AudioSegment
+try:
+    from pydub import AudioSegment
+except():
+    pass
+
 from openai import OpenAI
 
 
