@@ -17,23 +17,15 @@ Meddy is a revolutionary healthcare platform that simplifies the appointment boo
 
 - **WhatsApp API:** Integrated WhatsApp API for seamless appointment booking and communication.
 - **Zero-Shot Classification:** Utilized advanced machine learning techniques for preliminary diagnosis.
-- **Firebase:** Integrated Firebase for data storage and real-time communication.
+- **MongoDB:** Integrated MongoDB for data storage and real-time communication.
 - **React:** Built frontend interface for a smooth user experience.
 - **Node.js:** Powered the backend for robust functionality.
 
-## Getting Started
-
-To experience the benefits of Meddy, follow these simple steps:
-
-1. Sign up for an account on our platform.
-2. Connect with our WhatsApp bot to book appointments and receive preliminary diagnoses.
-3. Doctors can access patient summaries and provide personalized consultations.
-4. Enjoy automated reminders for follow-up appointments and seamless document generation.
 
 ## Usage
 
-1. Sign in to your Meddy account.
-2. Use the WhatsApp bot to book appointments and receive preliminary diagnoses.
+1. Sign in to your Meddy account (for Hospitals).
+2. Use the WhatsApp bot to book appointments and receive preliminary diagnoses (for Patients).
 3. Doctors can view patient summaries and provide consultations.
 4. Stay updated with automated reminders for follow-up appointments.
 
@@ -43,4 +35,4 @@ We welcome contributions to enhance Meddy! Whether it's a bug fix, feature impro
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).c
+This project is licensed under the [MIT License](LICENSE)
